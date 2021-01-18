@@ -1,0 +1,59 @@
+.tasks-container {
+  width: 70%;
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.task {
+  margin: 10px;
+
+  padding: 5px 20px;
+  width: 100%;
+  min-height: 50px;
+  background-color: rgb(222, 235, 255);
+
+  border-radius: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.task-description {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 10px;
+  padding: 5 0;
+}
+
+.task button {
+  font-size: 1.3em;
+  margin-left: 15px;
+  height: 35px;
+  width: 35px;
+  border: none;
+  border-radius: 17.5px;
+}
+
+.edit {
+  background-color: rgb(130, 189, 130);
+}
+.delete {
+  background-color: tomato;
+}
+.edit:active {
+  background-color: rgb(110, 158, 110);
+}
+.delete:active {
+  background-color: rgb(209, 90, 69);
+}

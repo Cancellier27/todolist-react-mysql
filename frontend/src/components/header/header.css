@@ -1,0 +1,22 @@
+header {
+  width: 100vw;
+  min-height: 80px;
+
+  background: rgb(125, 116, 255);
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header p {
+  margin-left: 2%;
+  color: yellow;
+  font-family: 'Press Start 2P', cursive;
+}
+
+header i {
+  margin-left: 4%;
+  font-size: 2em;
+  color: yellow;
+}
