@@ -6,7 +6,7 @@
 }
 
 .App {
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgb(232, 247, 253);
 
   display: flex;
@@ -21,7 +21,7 @@
 
   width: 70%;
   min-height: 120px;
-  
+
   background: white;
   border-radius: 25px;
 
@@ -34,22 +34,22 @@
 
 }
 
-.query-container span {
+.spanTitle {
   font-family: 'Press Start 2P', cursive;
   font-size: 0.7em;
   margin-bottom: 10px;
 }
 
-.query-container div {
+.divContainer {
   display: flex;
   width: 100%;
-  height: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.query-container div input {
+.inputTask,
+.inputEditTask {
   width: 100%;
   height: 30px;
 
@@ -58,7 +58,7 @@
   outline: none;
 }
 
-.query-container div button {
+.addBtn {
   border: none;
   border-radius: 10px;
 
@@ -69,6 +69,6 @@
   background: yellow;
 }
 
-.query-container div button:active {
+.addBtn:active {
   background: rgba(255, 255, 0, 0.795);
 }
