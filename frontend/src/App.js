@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Axios from 'axios'
 
 import './App.css';
 
@@ -14,15 +15,23 @@ function App() {
   const [editMessage, setEditMessage] = useState('')
   const [msgEdited, setMsgEdited] = useState('')
 
-  function newTaskInput(e) {
-    setNewTask(e.target.value)
-  }
+  useEffect(() => {
+    const URL = 'http://localhost:3001/api/selectAll'
+
+    Axios.get(URL).then((res) => {
+      console.log(res.data)
+      setTasks(res.data)
+    })
+  }, [])
 
   function createNewTask() {
     if (newTask === '') return alert('Create a task first')
     if (tasks.includes(newTask)) return alert('This task was already created!')
 
-    setTasks([...tasks, newTask])
+    Axios.post('http://localhost:3001/api/insert', { newTask: newTask }).then(() => {
+      alert('Successful inserted!')
+    })
+
     setNewTask('')
 
     document.querySelector('.inputTask').value = ''
@@ -51,18 +60,14 @@ function App() {
     setEditMessage(message)
   }
 
-  function editHandleMessage(e) {
-    setMsgEdited(e.target.value)
-  }
-
   function createNewTasksWithTheEditedMessage() {
-    for(let item of tasks) {
+    for (let item of tasks) {
       if (item === msgEdited && item !== editMessage) {
         alert('This task already exists')
         return
       }
     }
-    
+
     const newTasks = tasks.map(item => {
       if (item === editMessage) return msgEdited
       return item
@@ -85,22 +90,31 @@ function App() {
             autoFocus
             type="text"
             className="inputTask"
-            onChange={newTaskInput}
+            onChange={(e) => setNewTask(e.target.value)}
             onKeyPress={(e) => createNewTaskWithEnter(e, 1)}
           />
-          <button type="submit" onClick={createNewTask} className="addBtn" >Add</button>
+          <button
+            type="submit"
+            className="addBtn"
+            onClick={createNewTask}
+          > Add
+          </button>
         </div>
       </section>
 
       <section className="tasks-container" >
         {tasks.map((item, index) => {
-          return <Task taskMessage={item} key={index} deleteTask={deleteTask} editTask={editTask} />
+          return <Task
+            taskMessage={item}
+            key={index}
+            deleteTask={deleteTask}
+            editTask={editTask} />
         })}
       </section>
 
-      {isEditing && <EditScreen 
+      {isEditing && <EditScreen
         editMessage={editMessage}
-        editHandleMessage={editHandleMessage}
+        editHandleMessage={(e) => setMsgEdited(e.target.value)}
         createNewTaskWithEnter={createNewTaskWithEnter}
         createNewTasksWithTheEditedMessage={createNewTasksWithTheEditedMessage}
         setIsEditing={setIsEditing}

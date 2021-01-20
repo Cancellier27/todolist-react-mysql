@@ -67,6 +67,7 @@
   height: 30px;
 
   background: yellow;
+  cursor: pointer;
 }
 
 .addBtn:active {

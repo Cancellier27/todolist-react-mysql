@@ -43,13 +43,16 @@
   width: 35px;
   border: none;
   border-radius: 17.5px;
+  cursor: pointer;
 }
 
 .edit {
   background-color: rgb(130, 189, 130);
+  cursor: pointer;
 }
 .delete {
   background-color: tomato;
+  cursor: pointer;
 }
 .edit:active {
   background-color: rgb(110, 158, 110);
