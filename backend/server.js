@@ -13,6 +13,10 @@ app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
+app.listen(port, () => {
+  console.log(`Server running at door ${port}`)
+})
+
 app.get('/api/selectAll', (req, res) => {
   const sqlSelectAll = 'SELECT * FROM alltasks';
   connection.query(sqlSelectAll, (err, result) => {
@@ -27,10 +31,22 @@ app.post('/api/insert', (req, res) => {
   connection.query(sqlNewRow, [newTask],(err, result) => {
     console.log('New row added!')
   })
-  connection.end()
 })
 
-app.listen(port, () => {
-  console.log(`Server running at door ${port}`)
+app.delete('/api/erase/:message', (req, res)  => {
+  const {message} =  req.params
+
+  const sqlDel =  'DELETE FROM alltasks WHERE message =  ?'
+  connection.query(sqlDel, message, (err, result) => {
+    console.log('Item deleted')
+  })
 })
 
+app.put('/api/update', (req, res)  => {
+  const {newMessage, completed, message} =  req.body
+
+  const sqlUpdate =  'UPDATE alltasks SET message =  ?, completed = ? WHERE message = ?'
+  connection.query(sqlUpdate, [newMessage, completed, message], (err, result) => {
+    console.log(result)
+  })
+})

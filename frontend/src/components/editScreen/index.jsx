@@ -5,7 +5,9 @@ const EditScreen = ({
   editHandleMessage,
   createNewTaskWithEnter,
   createNewTasksWithTheEditedMessage,
-  setIsEditing
+  setIsEditing,
+  completed,
+  handleChecked
 }) => {
   return (
     <div className="editingScreen" >
@@ -13,10 +15,15 @@ const EditScreen = ({
         <span className="spanTitle">Edit your task:</span>
         <div className="divContainer" >
           <input
+            className='editCheckbox'
+            type="checkbox"
+            checked={completed}
+            onChange={handleChecked}
+          />
+          <input
             autoFocus
             type="text"
             className="inputEditTask"
-            defaultValue={editMessage}
             onChange={editHandleMessage}
             onKeyPress={(e) => createNewTaskWithEnter(e, 2)}
           />

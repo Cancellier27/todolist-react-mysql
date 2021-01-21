@@ -14,23 +14,27 @@ function App() {
   const [isEditing, setIsEditing] = useState(false)
   const [editMessage, setEditMessage] = useState('')
   const [msgEdited, setMsgEdited] = useState('')
+  const [isChecked, setIsChecked] = useState(false)
 
   useEffect(() => {
     const URL = 'http://localhost:3001/api/selectAll'
 
     Axios.get(URL).then((res) => {
-      console.log(res.data)
-      setTasks(res.data)
+      setTasks([...res.data])
     })
   }, [])
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   function createNewTask() {
     if (newTask === '') return alert('Create a task first')
     if (tasks.includes(newTask)) return alert('This task was already created!')
 
-    Axios.post('http://localhost:3001/api/insert', { newTask: newTask }).then(() => {
-      alert('Successful inserted!')
-    })
+    Axios.post('http://localhost:3001/api/insert', { newTask: newTask })
+
+    setTasks([...tasks, { message: newTask, completed: false }])
 
     setNewTask('')
 
@@ -50,9 +54,8 @@ function App() {
   }
 
   function deleteTask(message) {
-    setTasks(
-      tasks.filter(item => item !== message)
-    )
+    Axios.delete(`http://localhost:3001/api/erase/${message}`)
+    refreshPage()
   }
 
   function editTask(message) {
@@ -68,16 +71,17 @@ function App() {
       }
     }
 
-    const newTasks = tasks.map(item => {
-      if (item === editMessage) return msgEdited
-      return item
+    if (msgEdited === '') return alert('You must change the message or cancel the operation')
+
+    Axios.put('http://localhost:3001/api/update', {
+      newMessage: msgEdited,
+      completed: isChecked,
+      message: editMessage
     })
 
-    setTasks(newTasks)
     setIsEditing(false)
+    refreshPage()
   }
-
-
 
   return (
     <div className="App">
@@ -103,17 +107,19 @@ function App() {
       </section>
 
       <section className="tasks-container" >
-        {tasks.map((item, index) => {
+        {tasks.map((item) => {
           return <Task
-            taskMessage={item}
-            key={index}
+            taskMessage={item.message}
+            key={item.message}
+            completed={!!item.completed}
             deleteTask={deleteTask}
             editTask={editTask} />
         })}
       </section>
 
       {isEditing && <EditScreen
-        editMessage={editMessage}
+        completed={isChecked}
+        handleChecked={() => setIsChecked(!isChecked)}
         editHandleMessage={(e) => setMsgEdited(e.target.value)}
         createNewTaskWithEnter={createNewTaskWithEnter}
         createNewTasksWithTheEditedMessage={createNewTasksWithTheEditedMessage}

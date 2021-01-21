@@ -1,11 +1,11 @@
 import React from 'react'
 import './task.css'
 
-const Task = ({ taskMessage, deleteTask, editTask }) => {
+const Task = ({ taskMessage, deleteTask, editTask, completed }) => {
   return (
     <div className='task' >
       <div>
-        <input type="checkbox" />
+        <input className="taskCheckbox" type="checkbox" readOnly checked={completed} />
         <p className='task-description'>{taskMessage}</p>
       </div>
       <div>

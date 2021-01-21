@@ -22,6 +22,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  overflow: hidden;
 }
 
 .task div {
@@ -34,6 +36,8 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-left: 10px;
   padding: 5 0;
+  word-break: break-all
+  
 }
 
 .task button {
@@ -59,4 +63,8 @@
 }
 .delete:active {
   background-color: rgb(209, 90, 69);
+}
+
+.taskCheckbox {
+  transform: scale(1.3);
 }

@@ -60,3 +60,8 @@
   background: tomato;
   cursor: pointer;
 }
+
+.editCheckbox {
+  margin-right: 10px;
+  transform: scale(1.7);
+}
