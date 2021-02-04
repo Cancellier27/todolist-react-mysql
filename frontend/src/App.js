@@ -63,7 +63,7 @@ function App() {
     setEditMessage(message)
   }
 
-  function createNewTasksWithTheEditedMessage() {
+ async function createNewTasksWithTheEditedMessage() {
     for (let item of tasks) {
       if (item === msgEdited && item !== editMessage) {
         alert('This task already exists')
@@ -71,7 +71,17 @@ function App() {
       }
     }
 
-    if (msgEdited === '') return alert('You must change the message or cancel the operation')
+    if (msgEdited === '') {
+      Axios.put('http://localhost:3001/api/update', {
+        newMessage: editMessage,
+        completed: isChecked,
+        message: editMessage
+      })
+
+      setIsEditing(false)
+      refreshPage()
+      return
+    }
 
     Axios.put('http://localhost:3001/api/update', {
       newMessage: msgEdited,
