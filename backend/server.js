@@ -33,11 +33,11 @@ app.post('/api/insert', (req, res) => {
   })
 })
 
-app.delete('/api/erase/:message', (req, res)  => {
-  const {message} =  req.params
+app.delete('/api/erase/:id', (req, res)  => {
+  const {id} =  req.params
 
-  const sqlDel =  'DELETE FROM alltasks WHERE message =  ?'
-  connection.query(sqlDel, message, (err, result) => {
+  const sqlDel =  'DELETE FROM alltasks WHERE id = ?'
+  connection.query(sqlDel, id, (err, result) => {
     console.log('Item deleted')
   })
 })

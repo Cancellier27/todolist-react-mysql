@@ -16,6 +16,7 @@ function App() {
   const [msgEdited, setMsgEdited] = useState('')
   const [isChecked, setIsChecked] = useState(false)
 
+ 
   useEffect(() => {
     const URL = 'http://localhost:3001/api/selectAll'
 
@@ -30,7 +31,7 @@ function App() {
 
   function createNewTask() {
     if (newTask === '') return alert('Create a task first')
-    if (tasks.includes(newTask)) return alert('This task was already created!')
+    if (tasks.map(item => item['message']).includes(newTask)) return alert('This task was already created!')
 
     Axios.post('http://localhost:3001/api/insert', { newTask: newTask })
 
@@ -53,8 +54,8 @@ function App() {
     }
   }
 
-  function deleteTask(message) {
-    Axios.delete(`http://localhost:3001/api/erase/${message}`)
+  function deleteTask(id) {
+    Axios.delete(`http://localhost:3001/api/erase/${id}`)
     refreshPage()
   }
 
@@ -120,6 +121,7 @@ function App() {
         {tasks.map((item) => {
           return <Task
             taskMessage={item.message}
+            taskId={item.id}
             key={item.message}
             completed={!!item.completed}
             deleteTask={deleteTask}

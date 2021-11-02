@@ -1,7 +1,6 @@
 import './edit.css'
 
 const EditScreen = ({
-  editMessage,
   editHandleMessage,
   createNewTaskWithEnter,
   createNewTasksWithTheEditedMessage,

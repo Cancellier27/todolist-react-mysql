@@ -1,7 +1,7 @@
 import React from 'react'
 import './task.css'
 
-const Task = ({ taskMessage, deleteTask, editTask, completed }) => {
+const Task = ({ taskMessage, deleteTask, editTask, completed, taskId }) => {
   return (
     <div className='task' >
       <div>
@@ -16,7 +16,7 @@ const Task = ({ taskMessage, deleteTask, editTask, completed }) => {
         </button>
         <button
           className="delete"
-          onClick={() => deleteTask(taskMessage)} >
+          onClick={() => deleteTask(taskId)} >
           <i className="fas fa-trash-alt"></i>
         </button>
       </div>
